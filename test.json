@@ -1,0 +1,25 @@
+{
+    "user": {
+        "_redirectEventId": "undefined",
+        "apiKey": "AIzaSyC88ZkGDov555dcO6wPnVk3woA7m4OubRw",
+        "appName": "[DEFAULT]",
+        "createdAt": "1711172375590",
+        "displayName": "dung",
+        "email": "dungkuro4205@gmail.com",
+        "emailVerified": false,
+        "isAnonymous": false,
+        "lastLoginAt": "1712558865496",
+        "phoneNumber": "undefined",
+        "photoURL": "undefined",
+        "providerData": [
+            
+        ],
+        "stsTokenManager": {
+            "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjgwNzhkMGViNzdhMjdlNGUxMGMzMTFmZTcxZDgwM2I5MmY3NjYwZGYiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiZHVuZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9hc20tcmVhY3QtMiIsImF1ZCI6ImFzbS1yZWFjdC0yIiwiYXV0aF90aW1lIjoxNzEyNTU4ODY1LCJ1c2VyX2lkIjoiUEMyWTlBRnJobGN3b3VjeFNPUzNkaDZ4bkRXMiIsInN1YiI6IlBDMlk5QUZyaGxjd291Y3hTT1MzZGg2eG5EVzIiLCJpYXQiOjE3MTI1NTg4NjUsImV4cCI6MTcxMjU2MjQ2NSwiZW1haWwiOiJkdW5na3VybzQyMDVAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImR1bmdrdXJvNDIwNUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.ZovqgfbkmZUlHAdzyWR78dVgboxnSjrH6If6FRw1Rgas9GnZkBokDyNwoldT4800tRFdr6FHT7RAXMvipzf4cjKDkmF7nV06ot61kPX6iorYr7xcd_1TGUADt9n-SL0NV57-4X8TLH6LrmntbY3Zdys4YC51pbEh7rqM4sa4_NTGBnuJSdyqOXptCIuc_DW4J82n-IJtIU-J6JrnPN7U9b-jbJ40hQDu78QnNR8dn-l5YjyKFdKAma0xVUIa4ZTg9945jDAN9bttcLBfATevUG4rxQJBkspcgyvZjh3DFZpuDDq-kLjfSO682CimnHHZ8LGIk8X-RnWS23gXuzl74Q",
+            "expirationTime": 1712562464119,
+            "refreshToken": "AMf-vBwd2RNMwzvvs_dh4a-oALopUsdJjBQixskWOLKE8gRqlq4AzgvFvikvy_ta-0B453G5fv77hE2l1WK1Pzi4oZZ7t8vMPc0pFXz3Ucdg4E8eqsACPXQkRufE3_j8ZYO4BhxhcHJ6XnCbAeuyzQOn1lRoVCTFG7ZkCZ6VELISG1X4rMytGfaNpd1SF5P-HdAcvl3Ik-Gp2zZCxcT5yhvVsfINWB9ocg"
+        },
+        "tenantId": "undefined",
+        "uid": "PC2Y9AFrhlcwoucxSOS3dh6xnDW2"
+    }
+}

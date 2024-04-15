@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "705229363028",
+    "project_id": "asm-react-2",
+    "storage_bucket": "asm-react-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705229363028:android:a6163d20eb5bc45a139ac1",
+        "android_client_info": {
+          "package_name": "com.asm_reactnative2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705229363028-c47tqbe5gvks3nd4ms04fg2h7urd3as5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.asm_reactnative2",
+            "certificate_hash": "986cddd4818e5838502c1ecc14c9c2375e84407c"
+          }
+        },
+        {
+          "client_id": "705229363028-r6pdur5mj7k421eaps0sifu9k2vc79c5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrVVns8535_LmSGNfWw2xipjq9jNVeWgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705229363028-r6pdur5mj7k421eaps0sifu9k2vc79c5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
