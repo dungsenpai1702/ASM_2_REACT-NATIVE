@@ -17,6 +17,8 @@ const Tab = createBottomTabNavigator();
 
 export default function Home_Navigation() {
     const sizeIcon = 34;
+
+    // enableScreen(false)
     return (
         <Tab.Navigator
 

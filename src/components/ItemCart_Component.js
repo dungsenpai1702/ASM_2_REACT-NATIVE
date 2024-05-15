@@ -8,18 +8,18 @@ import CouterProduct_Component from './CouterProduct_Component';
 import { shopingCartSlice } from '../redux/shopingCartSlice/shopingCartSlice';
 import { Swipeable } from 'react-native-gesture-handler';
 import RemoveIcon from '../assets/svg/remove_item.svg'
-export default function ItemCart_Component({ data }) {
-
+export default function ItemCart_Component({ data, orderID }) {
+    console.log(orderID);
     const dispatch = useDispatch();
     const [product, setProduct] = useState();
     const listCart = useSelector(selectProduct);
     const [counter, setCounter] = useState(data.quantity)
-    const findProduct = () => {
-        const find = listCart.find(item => item._id == data.id_product)
-        // console.log(find);
-        return find
+    // const findProduct = () => {
+    //     const find = listCart.find(item => item._id == data.id_product)
+    //     // console.log(find);
+    //     return find
 
-    }
+    // }
 
     const toPriceVN = (number) => {
         return number.toLocaleString('vi-VN');

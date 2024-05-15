@@ -2,6 +2,8 @@ import { createSelector } from "@reduxjs/toolkit";
 
 export const selectProduct = (state) => state.products.products;
 
+// export const selectCartByOrder
+
 export const selectOneProduct = (state, id) => state.products.products.find(item => item._id == id);
 
 export const selectCartItem = (state, uid) => state.shopingCart.cartItems.filter(item => item.status == false);
@@ -14,6 +16,10 @@ export const selectNotification = (state) => state.notification.listNotification
 export const selectNotificationStatus = (state) => state.notification.listNotification.filter(item => item.status == false);
 
 export const selectListOrder = state => state.orders.listOrder;
+
+// export const selectListOrderHistory = createSelector(selectListOrder, list => list.filter(order => order.status == false));
+
+export const selectOrderSatusTrue = createSelector(selectListOrder, (list) => list.find(order => order.status == true));
 
 export const selectSumPrice = (state, uid) => {
     const listCart = state.shopingCart.cartItems.filter(item => item.uid == uid && item.status == false);

@@ -5,11 +5,17 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft'
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { SIZES } from '../constants/theme'
-export default function Header_Customer({ title, avatar, showAvatar, navigation, shadow, showLeft, icon, onPressRight }) {
+export default function Header_Customer({ title, avatar, showAvatar, navigation, shadow, showLeft, icon, onPressRight, navigate }) {
 
     return (
         <View style={[{ width: '100%', height: '8%', paddingHorizontal: 15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }, shadow ? st.shadow : '']}>
-            <TouchableOpacity style={{ width: '20%' }} onPress={() => { navigation.goBack() }}>
+            <TouchableOpacity style={{ width: '20%' }} onPress={() => {
+                if (navigate) {
+                    navigation.navigate(navigate)
+                } else {
+                    navigation.goBack()
+                }
+            }}>
                 {showLeft == undefined ? (
                     <FontAwesomeIcon icon={faChevronLeft} color='black' size={34} />
                 ) : (

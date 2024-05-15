@@ -9,10 +9,41 @@ import Header_Customer from '../../components/Header_Customer'
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons/faRightFromBracket'
 import UserIcon from '../../assets/svg/user.svg'
 import { COLORS, SIZES, W } from '../../constants/theme'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const auth = FIREBASE_AUTH;
 
 export default function Profile_screen({ navigation }) {
+    const storage = {
+        storeData: async (key, value) => {
+            try {
+                await AsyncStorage.setItem(key, JSON.stringify(value));
+            } catch (error) {
+                console.error(error);
+            }
+        },
 
+        getData: async (key) => {
+            try {
+                const value = await AsyncStorage.getItem(key);
+                if (value) {
+                    return JSON.parse(value);
+                } else {
+                    return null;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
+        removeData: async (key) => {
+            try {
+                await AsyncStorage.removeItem(key);
+                console.log(`Data with key "${key}" has been removed.`);
+            } catch (error) {
+                console.error(`Failed to remove data with key "${key}": ${error}`);
+            }
+        }
+    }
     const logOut = async () => {
         try {
             Alert.alert("Log Out", "Bạn có chắc muốn đăng xuất?", [
@@ -24,6 +55,9 @@ export default function Profile_screen({ navigation }) {
                     text: 'Ok',
                     onPress: () => {
                         signOut(auth)
+                        storage.removeData("checkLogin")
+                        storage.removeData("mail");
+                        storage.removeData("pass")
                     }
                 }
             ])

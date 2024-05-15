@@ -3,10 +3,44 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { Cart_screen, CheckoutScreen_screen, DetailProduct, Forgot_screen, Intro_screen, OrderHistory_screen, Payment_screen, Signin_screen, Signup_screen, Splash_screen } from '../screen/index.screen';
 import Home_Navigation from './Home_Navigation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
 export default function Navigation() {
+
+    
+    const storage = {
+        storeData: async (key, value) => {
+            try {
+                await AsyncStorage.setItem(key, JSON.stringify(value));
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
+        getData: async (key) => {
+            try {
+                const value = await AsyncStorage.getItem(key);
+                if (value) {
+                    return JSON.parse(value);
+                } else {
+                    return null;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
+        removeData: async (key) => {
+            try {
+                await AsyncStorage.removeItem(key);
+                console.log(`Data with key "${key}" has been removed.`);
+            } catch (error) {
+                console.error(`Failed to remove data with key "${key}": ${error}`);
+            }
+        }
+    }
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>

@@ -31,11 +31,11 @@ export default function OrderHistory_screen({ navigation }) {
                 <FlatList
                     data={listOrder}
                     renderItem={({ item }) => {
-                        if (item.uid == userLogin.uid) {
+                        if (item.uid == userLogin.uid && item.status == false) {
                             return (
                                 <ItemOrderHistory_Component item={item} />
                             )
-                        } 
+                        }
                     }}
                 />
 

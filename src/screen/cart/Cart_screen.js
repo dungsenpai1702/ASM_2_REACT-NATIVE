@@ -1,9 +1,9 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { Alert, FlatList, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import HeaderItemDetail_Component from '../../components/HeaderItemDetail_Component'
 import IconDelete from '../../assets/svg/delete-2.svg'
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCartItem, selectSumPrice } from '../../redux/selector';
+import { selectCartItem, selectOrderSatusTrue, selectSumPrice } from '../../redux/selector';
 import { COLORS, SIZES, W } from '../../constants/theme';
 import ItemCart_Component from '../../components/ItemCart_Component';
 import { shopingCartSlice } from '../../redux/shopingCartSlice/shopingCartSlice';
@@ -21,12 +21,27 @@ export default function Cart_screen({ navigation }) {
     const { userLogin } = useUserLogin();
     const sumPrice = useSelector((state) => selectSumPrice(state, userLogin.uid))
 
+    const orderItem = useSelector(selectOrderSatusTrue);
+
     const listCart = useSelector((state) => selectCartItem(state, userLogin.uid));
     // console.log("listCart", listCart);
     const dispatch = useDispatch();
     useEffect(() => {
         // console.log("sumPrice: ", sumPrice);
     }, [sumPrice])
+
+    useEffect(() => {
+        if (orderItem == undefined) {
+            dispatch(orderSlice.actions.addOrderItem({
+                id: uuid.v4(),
+                uid: userLogin.uid,
+                timeOrder: '',
+                sumPrice: sumPrice,
+                status: true
+            }))
+        }
+    }, []);
+
     const deleteAlllCart = () => {
         dispatch(shopingCartSlice.actions.deleteAll())
     }
@@ -37,21 +52,23 @@ export default function Cart_screen({ navigation }) {
 
     const order = () => {
 
+        if (orderItem == undefined) {
+            Alert.alert("Lỗi thanh toán!", "Vui lòng thử lại hoặc liên hệ hỗ trợ!", [
+                {
+                    text: 'Cancel',
+                    style: 'cancel'
+                }
+            ])
+            return;
+        }
+
         let listIdCart = [];
         listIdCart = listCart.filter((item) => item.checkBox).map((item) => item.id_cart)
-        dispatch(shopingCartSlice.actions.updateCartSatus(listIdCart))
+        dispatch(shopingCartSlice.actions.updateCartSatus({ listIdCart: listIdCart, id: orderItem.id }))
 
 
-        // navigation.navigate('checkOut', { listID: listIdCart });
-        // console.log("listIdCart: ", listIdCart);
-        const timeOrder = new Date().toISOString();
-        const orderItem = {
-            listCart: listIdCart,
-            id: uuid.v4(),
-            timeOrder: timeOrder,
-            sumPrice: sumPrice,
-            uid: userLogin.uid
-        }
+
+
         listCart.forEach(item => {
             if (item.checkBox && item.status == false) {
                 dispatch(productSlice.actions.updateQuantityProduct({
@@ -61,7 +78,8 @@ export default function Cart_screen({ navigation }) {
             }
         });
 
-        dispatch(orderSlice.actions.addOrderItem(orderItem));
+        // dispatch(orderSlice.actions.addOrderItem(orderItem));
+        const timeOrder = new Date().toISOString();
         dispatch(notificationSlice.actions.addNotification({
             status: false,
             id_order: orderItem.id,
@@ -70,6 +88,12 @@ export default function Cart_screen({ navigation }) {
             time: timeOrder,
             uid: userLogin.uid
         }))
+
+        dispatch(orderSlice.actions.updateOrderItem(
+            {
+                id: orderItem.id,
+                time: timeOrder
+            }))
 
     }
 
@@ -90,7 +114,7 @@ export default function Cart_screen({ navigation }) {
                         data={listCart}
                         renderItem={({ item, index }) => {
                             if (item.status == false) {
-                                return <ItemCart_Component data={item} />
+                                return <ItemCart_Component data={item} orderID={orderItem} />
                             }
                         }}
                         style={{ width: '100%' }}

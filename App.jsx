@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { store } from './src/redux/store'
 import Context from './src/context/index.context'
 export default function App() {
-  console.disableYellowBox = true;
+  // console.disableYellowBox = true;
   console.warn = () => { };
   return (
     <Context>

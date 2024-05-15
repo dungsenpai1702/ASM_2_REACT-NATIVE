@@ -22,6 +22,7 @@ export default function DetailProduct({ route, navigation }) {
     const [cart, setCart] = useState();
     const [counter, setCounter] = useState(1)
     const listCart = useSelector(selectCartItem)
+
     // const cartFind = useSelector((state)=>selectCartItemById(state, item._id, userLogin.uid))
 
     // useEffect(() => {
@@ -93,6 +94,7 @@ export default function DetailProduct({ route, navigation }) {
             quantity: counter,
             checkBox: false,
             status: false,
+            id_order: ""
         }
         dispastch(shopingCartSlice.actions.addCart(newCart))
         nextShopCart()

@@ -5,15 +5,14 @@ import { ScrollView } from 'react-native-gesture-handler'
 import Input_Customer from '../../components/Input_Components'
 import Button_Customer from '../../components/Button_Customer'
 import { Iconify } from 'react-native-iconify'
-import {
-
-} from '@react-native-google-signin/google-signin';
+// import {} from '@react-native-google-signin/google-signin';
 // auth
-import { FIREBASE_AUTH } from '../../../auth/auth.config'
-import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile,  } from 'firebase/auth'
+// import { FIREBASE_AUTH } from '../../../auth/auth.config'
+// import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile,  } from 'firebase/auth'
+import auth from '@react-native-firebase/auth'
 
 
-const auth = FIREBASE_AUTH;
+// const auth = FIREBASE_AUTH;
 
 
 export default function Signup_screen({ navigation }) {
@@ -37,24 +36,7 @@ export default function Signup_screen({ navigation }) {
 
   const [laoding, setLoading] = useState(false);
 
-  // useEffect(() => {
-  // const validateField = (field, value, errorSetter, errorContentSetter, validationRegex, errorMessage) => {
-  //   if (!value || !validationRegex.test(value)) {
-  //     errorSetter(true);
-  //     errorContentSetter(errorMessage);
-  //   } else {
-  //     errorSetter(false);
-  //     errorContentSetter('');
-  //   }
-  // };
 
-  // const startValidation = () => {
-  //   validateField('name', name, setErrName, setErrContentName, /^.{1,}$/, 'Please enter your name');
-  //   validateField('phoneNumber', phoneNumber, setErrPhoneNumber, setErrContentPhoneNumber, /^.{1,}$/, 'Please enter your phone number');
-  //   validateField('mail', mail, setErrMail, setErrContentMail, /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address');
-  //   validateField('pass', pass, setErrPass, setErrContentPass, /^.{6,}$/, 'Password must be at least 6 characters');
-  // }
-  // }, [name, phoneNumber, mail, pass]);
 
 
 
@@ -64,57 +46,107 @@ export default function Signup_screen({ navigation }) {
       return;
     }
     setLoading(true);
-    try {
-      const response = await createUserWithEmailAndPassword(auth, mail.trim(), pass.trim());
-      await updateProfile(response.user, {
-        displayName: name,
-        phoneNumber: phoneNumber.toString()
-      });
-      // await sendEmailVerification(response.user);
-      Alert.alert('Đăng ký thành công', 'Đăng nhập ngay để đồng hành cùng chúng tôi!', [
-        {
-          text: 'Cancel',
-          style: 'cancel'
-        },
-        {
-          text: 'OK',
-          onPress: () => {
-            navigation.navigate('signin');
-          }
-        }
-      ])
+    // try {
+    //   const response = await createUserWithEmailAndPassword(auth, mail.trim(), pass.trim());
+    //   await updateProfile(response.user, {
+    //     displayName: name,
+    //     phoneNumber: phoneNumber.toString()
+    //   });
+    //   // await sendEmailVerification(response.user);
+    //   Alert.alert('Đăng ký thành công', 'Đăng nhập ngay để đồng hành cùng chúng tôi!', [
+    //     {
+    //       text: 'Cancel',
+    //       style: 'cancel'
+    //     },
+    //     {
+    //       text: 'OK',
+    //       onPress: () => {
+    //         navigation.navigate('signin');
+    //       }
+    //     }
+    //   ])
 
-    } catch (error) {
-      console.log("Lỗi: " + error.code);
-      if (error.code === 'auth/email-already-in-use') {
-        // Xử lý khi địa chỉ email đã được sử dụng
-        setErrMail(true);
-        setErrContentMail('Email đã tồn tại');
-        Alert.alert('Error!', 'Email đã được sử dụng!', [
+    // } catch (error) {
+    //   console.log("Lỗi: " + error.code);
+    //   if (error.code === 'auth/email-already-in-use') {
+    //     // Xử lý khi địa chỉ email đã được sử dụng
+    //     setErrMail(true);
+    //     setErrContentMail('Email đã tồn tại');
+    //     Alert.alert('Error!', 'Email đã được sử dụng!', [
+    //       {
+    //         text: 'Cancel',
+    //         // onPress: () => console.log('Cancel Pressed'),
+    //         style: 'cancel',
+    //       },])
+    //   } else {
+    //     // Xử lý các loại ngoại lệ khác từ Firebase
+    //     Alert.alert('Error!', 'Vui lòng liên hệ hỗ trợ: 0346477714!', [
+    //       {
+    //         text: 'Cancel',
+    //         // onPress: () => console.log('Cancel Pressed'),
+    //         style: 'cancel',
+    //       },])
+    //   }
+    // } finally {
+    //   setLoading(false)
+    // }
+
+    auth().createUserWithEmailAndPassword(mail.trim(), pass.trim())
+      .then((response) => {
+        response.user.updatePhoneNumber(phoneNumber)
+        response.user.updateProfile({
+          displayName: name,
+          
+        })
+
+        Alert.alert('Đăng ký thành công', 'Đăng nhập ngay để đồng hành cùng chúng tôi!', [
           {
             text: 'Cancel',
-            // onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },])
-      } else {
-        // Xử lý các loại ngoại lệ khác từ Firebase
-        Alert.alert('Error!', 'Vui lòng liên hệ hỗ trợ: 0346477714!', [
+            style: 'cancel'
+          },
           {
-            text: 'Cancel',
-            // onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },])
-      }
-    } finally {
-      setLoading(false)
-    }
+            text: 'OK',
+            onPress: () => {
+              navigation.navigate('signin');
+            }
+          }
+        ])
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("Lỗi: " + error.code);
+        if (error.code === 'auth/email-already-in-use') {
+          // Xử lý khi địa chỉ email đã được sử dụng
+          setErrMail(true);
+          setErrContentMail('Email đã tồn tại');
+          Alert.alert('Error!', 'Email đã được sử dụng!', [
+            {
+              text: 'Cancel',
+              // onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },])
+        } else {
+          // Xử lý các loại ngoại lệ khác từ Firebase
+          Alert.alert('Error!', 'Vui lòng liên hệ hỗ trợ: 0346477714!', [
+            {
+              text: 'Cancel',
+              // onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },])
+        }
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+
+
 
 
   }
 
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
-      <Header_Customer navigation={navigation} />
+      <Header_Customer navigation={navigation} navigate={'splash'} />
       <Image source={require('../../assets/img_login/signup.png')} style={{ height: 250, width: '100%', objectFit: 'contain' }} />
       <ScrollView style={{ width: '100%', height: '90%' }}>
         <View style={{ width: '100%', alignItems: 'center' }}>

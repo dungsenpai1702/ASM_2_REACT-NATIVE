@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore'
+// import {} from 'react-native-f' q
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,6 +18,8 @@ const firebaseConfig = {
     appId: "1:705229363028:web:8e818e5ab9c41d5c139ac1",
     measurementId: "G-B8RM4PR5YN"
 };
+// 
+
 
 // Initialize Firebase
 

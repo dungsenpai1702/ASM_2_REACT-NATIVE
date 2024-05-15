@@ -73,11 +73,11 @@ export const shopingCartSlice = createSlice({
             }
         },
         updateCartSatus: (state, action) => {
-            const { payload } = action;
-            console.log("List ID: ", payload);
+            const { listIdCart, id } = action.payload;
+            console.log("List ID: ", listIdCart);
             state.cartItems = state.cartItems.map(cart => {
-                if (payload.some(id => id === cart.id_cart && cart.checkBox === true)) {
-                    return { ...cart, status: true };
+                if (listIdCart.some(id => id === cart.id_cart && cart.checkBox === true)) {
+                    return { ...cart, status: true, id_order: id };
                 }
                 return cart;
             });
